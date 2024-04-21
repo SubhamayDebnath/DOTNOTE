@@ -25,7 +25,7 @@ function LoginPage() {
                 </div>
             </form>
             <div>
-                <span>Create a new Account ?<Link to={"/register"}>Register Now</Link></span>
+                <span>Create a new Account ?<Link to={"/signup"}>Register Now</Link></span>
             </div>
         </div>
     </section>

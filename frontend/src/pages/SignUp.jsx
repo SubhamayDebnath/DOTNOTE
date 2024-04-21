@@ -4,6 +4,7 @@ import {Link ,useNavigate} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 import {toast} from 'react-hot-toast'
 import defaultUserImage from '../assets/defaultUserImage.png'
+import { createAccount } from '../redux/slice/auth.slice'
 function SignUp() {
     const [showPassword,setShowPassword]=useState(false);
     const [previewImage,setPreviewImage]=useState("");
@@ -37,7 +38,7 @@ function SignUp() {
             setPreviewImage(this.result);
         })
     }
-    function createNewAccount(event){
+    async function createNewAccount(event){
         event.preventDefault();
         if(!SignUpData.avatar){
             toast.error("Profile Image is required")
@@ -65,14 +66,18 @@ function SignUp() {
         }
         if(!SignUpData.password.match( /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{6,}$/)){
             toast.error("Password should be at least 6 characters long with number,alphabet and special character")
+            return
         }
         const formData = new FormData;
         formData.append("userName",SignUpData.userName)
         formData.append("email",SignUpData.email)
         formData.append("password",SignUpData.password)
         formData.append("avatar",SignUpData.avatar)
-        
-        SignUpData({
+        const response = await dispatch(createAccount(formData));
+        if(response?.payload?.success){
+            navigate("/");
+        }
+        setSignUpData({
             userName:"",
             email:"",
             password:"",

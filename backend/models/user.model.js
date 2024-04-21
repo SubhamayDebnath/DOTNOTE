@@ -33,11 +33,11 @@ const userSchema = new Schema(
       select: false,
     },
     avatar: {
-      publicID: {
-        type: "String",
+      public_id: {
+        type: String,
       },
-      secureURL: {
-        type: "String",
+      secure_url: {
+        type: String,
       },
     },
     role: {

@@ -34,8 +34,8 @@ const register = async (req, res, next) => {
       email,
       password,
       avatar: {
-        publicID: email,
-        secureURL: process.env.IMAGEURL,
+        public_id: email,
+        secure_url: "not found",
       },
     });
 
@@ -48,21 +48,22 @@ const register = async (req, res, next) => {
     if (req.file) {
       try {
         const result = await cloudinary.v2.uploader.upload(req.file.path, {
-          folder: "dotNOTE USERS",
-          width: 500,
-          height: 500,
-          gravity: "faces",
-          crop: "fill",
+          folder: 'dotnote', 
+          width: 250,
+          height: 250,
+          gravity: 'faces',
+          crop: 'fill',
         });
+  
         if (result) {
-          user.avatar.publicID = result.publicID;
-          user.avatar.secureURL = result.secureURL;
+          user.avatar.public_id = result.public_id;
+          user.avatar.secure_url = result.secure_url;
 
           fs.rm(`uploads/${req.file.filename}`);
         }
       } catch (error) {
         return next(
-          new AppError(error || "File not Uploaded,please try again", 500)
+          new AppError(error || 'File not uploaded, please try again', 400)
         );
       }
     }
