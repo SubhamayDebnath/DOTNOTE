@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect } from 'react'
 import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5'
 import {Link ,useNavigate} from 'react-router-dom'
-import {useDispatch} from 'react-redux'
+import {useDispatch ,useSelector} from 'react-redux'
 import {toast} from 'react-hot-toast'
 import defaultUserImage from '../assets/defaultUserImage.png'
 import { createAccount } from '../redux/slice/auth.slice'
@@ -10,6 +10,13 @@ function SignUp() {
     const [previewImage,setPreviewImage]=useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
+    useEffect(()=>{
+        if(isLoggedIn){
+            navigate("/");
+            return
+        }
+    })
     const [SignUpData,setSignUpData]=useState({
         userName:"",
         email:"",

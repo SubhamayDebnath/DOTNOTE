@@ -1,13 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5'
 import {Link ,useNavigate} from 'react-router-dom'
-import {useDispatch} from 'react-redux'
+import {useDispatch ,useSelector} from 'react-redux'
 import {toast} from 'react-hot-toast'
 import { login } from '../redux/slice/auth.slice'
 function LoginPage() {
-    const [showPassword,setShowPassword]=useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
+    useEffect(()=>{
+        if(isLoggedIn){
+            navigate("/");
+            return
+        }
+    })
+    const [showPassword,setShowPassword]=useState(false);
+   
     const [loginData,setLoginData]=useState({
         email:"",
         password:"",

@@ -6,14 +6,18 @@ import { IoClose, IoMenu } from "react-icons/io5";
 function Navbar() {
   const [menu, setMenu] = useState(false);
   const dispatch = useDispatch();
+  const navigate= useNavigate();
   const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
   const role = useSelector((state) => state?.auth?.role);
+  const data = useSelector((state) => state?.auth?.data);
+  const user=data
   async function handleLogOut(e) {
     e.preventDefault();
     const response = await dispatch(logout());
     if (response?.payload?.success) {
       navigate("/");
     }
+
   }
   return (
     <header>
@@ -48,8 +52,8 @@ function Navbar() {
             )}
             {isLoggedIn && (
               <>
-                <Link to={"/profile"} className="nav_link">
-                  Subhamay
+                <Link to={"/profile"} className="nav_link capitalize">
+                  {user.userName.split(" ")[0]}
                 </Link>
                 <span
                   className="nav_link cursor-pointer"
