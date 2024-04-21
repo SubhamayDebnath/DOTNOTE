@@ -16,7 +16,10 @@ function Navbar() {
             <Link to={"/notes"} className='nav_link'>Notes</Link>
             <Link to={"/about"} className='nav_link'>About us</Link>
             <Link to={"/contact"} className='nav_link'>Contact us</Link>
-            <Link to={"/"} className='nav_btn'>Get Started</Link>
+            <Link to={"/admin"} className='nav_link'>Admin Panel</Link>
+            <Link to={"/profile"} className='nav_link'>Subhamay</Link>
+            <span className='nav_link'>Log Out</span>
+            <Link to={"/login"} className='nav_btn'>Get Started</Link>
           </div>
         </div>
       </nav>
