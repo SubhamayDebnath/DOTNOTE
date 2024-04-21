@@ -5,13 +5,12 @@ const noteSchema = new Schema(
     title: {
       type: "String",
       required: [true, "Title is required"],
-      lowercase: true,
       trim: true,
     },
     description: {
       type: "String",
       required: [true, "Description is required"],
-      lowercase: true,
+
       trim: true,
     },
     colorCode: {
