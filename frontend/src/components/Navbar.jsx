@@ -1,8 +1,19 @@
 import React, { useState } from 'react'
-import {Link} from 'react-router-dom'
+import {Link ,useNavigate} from 'react-router-dom'
+import {useDispatch} from 'react-redux'
+import { logout } from '../redux/slice/auth.slice';
 import { IoClose, IoMenu } from "react-icons/io5";
 function Navbar() {
   const [menu,setMenu]=useState(false);
+  const dispatch = useDispatch();
+  
+  async function handleLogOut(e){
+    e.preventDefault();
+    const response = await dispatch(logout());
+    if(response?.payload?.success){
+      navigate("/");
+  }
+  }
   return (
     <header>
       <nav className='container flex items-center justify-between py-4 px-4 sm:px-6 lg:px-8'>
@@ -18,7 +29,7 @@ function Navbar() {
             <Link to={"/contact"} className='nav_link'>Contact us</Link>
             <Link to={"/admin"} className='nav_link'>Admin Panel</Link>
             <Link to={"/profile"} className='nav_link'>Subhamay</Link>
-            <span className='nav_link'>Log Out</span>
+            <span className='nav_link cursor-pointer' onClick={handleLogOut}>Log Out</span>
             <Link to={"/login"} className='nav_btn'>Get Started</Link>
           </div>
         </div>
